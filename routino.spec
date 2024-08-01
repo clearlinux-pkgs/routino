@@ -7,32 +7,84 @@
 #
 Name     : routino
 Version  : 3.4.1
-Release  : 1
+Release  : 2
 URL      : https://www.routino.org/download/routino-3.4.1.tgz
 Source0  : https://www.routino.org/download/routino-3.4.1.tgz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : AGPL-3.0-or-later
+Requires: routino-bin = %{version}-%{release}
+Requires: routino-data = %{version}-%{release}
+Requires: routino-lib = %{version}-%{release}
 BuildRequires : bzip2-dev
 BuildRequires : pkgconfig(zlib)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
+Patch1: build-fixes.patch
 
 %description
 Routino : OpenStreetMap Routing Software
 ========================================
 
+%package bin
+Summary: bin components for the routino package.
+Group: Binaries
+Requires: routino-data = %{version}-%{release}
+
+%description bin
+bin components for the routino package.
+
+
+%package data
+Summary: data components for the routino package.
+Group: Data
+
+%description data
+data components for the routino package.
+
+
+%package dev
+Summary: dev components for the routino package.
+Group: Development
+Requires: routino-lib = %{version}-%{release}
+Requires: routino-bin = %{version}-%{release}
+Requires: routino-data = %{version}-%{release}
+Provides: routino-devel = %{version}-%{release}
+Requires: routino = %{version}-%{release}
+
+%description dev
+dev components for the routino package.
+
+
+%package doc
+Summary: doc components for the routino package.
+Group: Documentation
+
+%description doc
+doc components for the routino package.
+
+
+%package lib
+Summary: lib components for the routino package.
+Group: Libraries
+Requires: routino-data = %{version}-%{release}
+
+%description lib
+lib components for the routino package.
+
+
 %prep
 %setup -q -n routino-3.4.1
 cd %{_builddir}/routino-3.4.1
+%patch -P 1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1722535814
+export SOURCE_DATE_EPOCH=1722536610
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -66,7 +118,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1722535814
+export SOURCE_DATE_EPOCH=1722536610
 rm -rf %{buildroot}
 export GOAMD64=v2
 GOAMD64=v2
@@ -74,3 +126,41 @@ GOAMD64=v2
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/filedumper
+/usr/bin/filedumper-slim
+/usr/bin/filedumperx
+/usr/bin/planetsplitter
+/usr/bin/planetsplitter-slim
+/usr/bin/router
+/usr/bin/router+lib
+/usr/bin/router+lib-slim
+/usr/bin/router-slim
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/routino/profiles.xml
+/usr/share/routino/tagging-drive.xml
+/usr/share/routino/tagging-ride.xml
+/usr/share/routino/tagging-walk.xml
+/usr/share/routino/tagging.xml
+/usr/share/routino/translations.xml
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/routino.h
+/usr/lib64/libroutino-slim.so
+/usr/lib64/libroutino.so
+
+%files doc
+%defattr(0644,root,root,0755)
+/usr/share/doc/routino/*
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libroutino-slim.so.0
+/usr/lib64/libroutino-slim.so.0.0.0
+/usr/lib64/libroutino.so.0
+/usr/lib64/libroutino.so.0.0.0

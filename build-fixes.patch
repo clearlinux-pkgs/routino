@@ -1,0 +1,31 @@
+From dfa3869161d1e15143fe9a779362e3488f98ff0d Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Thu, 1 Aug 2024 11:15:40 -0700
+Subject: [PATCH] build fixes
+
+---
+ Makefile.conf | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile.conf b/Makefile.conf
+index 55d81c52fe2d..913689d371f4 100644
+--- a/Makefile.conf
++++ b/Makefile.conf
+@@ -45,11 +45,11 @@ endif
+ # Installation locations (edit if required)
+ 
+ ifneq ($(HOST),MINGW)
+-  prefix=/usr/local
++  prefix=/usr
+   bindir=$(prefix)/bin
+   incdir=$(prefix)/include
+-  libdir=$(prefix)/lib
+-  docdir=$(prefix)/doc/routino
++  libdir=$(prefix)/lib64
++  docdir=$(prefix)/share/doc/routino
+   datadir=$(prefix)/share/routino
+ else
+   prefix="c:/Program Files/Routino"
+-- 
+2.46.0
+

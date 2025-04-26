@@ -1,6 +1,193 @@
+2025-04-26  Andrew M. Bishop <amb>
+
+	Version 3.4.3 released.
+
+2025-04-26 [r2207]  Andrew M. Bishop <amb>
+
+	* doc/html/readme.html: Fix typo in release notes.
+
+2025-04-26 [r2205]  Andrew M. Bishop <amb>
+
+	* FILES, doc/NEWS.txt, doc/README.txt, doc/html/readme.html,
+	  src/version.h: Update to version 3.4.3.
+
+2025-04-09 [r2203]  Andrew M. Bishop <amb>
+
+	* src/files.c, src/files.h, src/sorting.c: Merge the "filebuffer"
+	  and "openedfile" data structures. Add a new function for deleting
+	  an open buffered file. Improve the new logassert messages to
+	  print the filename.
+
+2025-04-08 [r2202]  Andrew M. Bishop <amb>
+
+	* src/files.c: Allocate the string for the filename of the mapped
+	  files. Don't allocate a filebuffer structure for mapped files.
+
+2025-04-06 [r2201]  Andrew M. Bishop <amb>
+
+	* src/files.c: Print an error message and exit if read/write fails.
+
+2025-04-06 [r2200]  Andrew M. Bishop <amb>
+
+	* extras/find-fixme/fixme-finder.c, src/files.c, src/logerror.c,
+	  src/planetsplitter.c, src/router.c, src/uncompress.c,
+	  src/xml/xsd-to-xmlparser.c: Check and update all exits from the
+	  program to make sure that there is consistency in the error
+	  messages. Use logassert if it's an internal bug, use
+	  fprintf();exit() if it's a user error or program failure to
+	  route.
+
+2025-04-06 [r2199]  Andrew M. Bishop <amb>
+
+	* src/nodesx.c, src/relationsx.c, src/waysx.c: Revert part of r2189
+	  and add extra checks on the sizes of node_t, way_t and relation_t
+	  with respect to index_t.
+
+2025-04-05 [r2198]  Andrew M. Bishop <amb>
+
+	* src/logging.c, src/logging.h: Create a logassert function that
+	  allows a format string (via a pre-processor hack).
+
+2025-04-05 [r2197]  Andrew M. Bishop <amb>
+
+	* src/version.h: Update the version number to make clear it is
+	  modified from the release version.
+
+2025-03-29  Andrew M. Bishop <amb>
+
+	Version 3.4.2 released.
+
+2025-03-29 [r2193]  Andrew M. Bishop <amb>
+
+	* FILES, doc/NEWS.txt, doc/README.txt, doc/html/readme.html,
+	  src/version.h: Update to version 3.4.2.
+
+2024-09-18 [r2192]  Andrew M. Bishop <amb>
+
+	* src/output.c: Fix compilation warnings if index_t is changed to a
+	  64-bit type but preserve formatting of fake nodes (shown as
+	  negative).
+
+2024-09-18 [r2191]  Andrew M. Bishop <amb>
+
+	* python/setup.py: Add header files as dependencies for the Python
+	  module.
+
+2024-09-03 [r2190]  Andrew M. Bishop <amb>
+
+	* src/types.h: Change the lower limit for fake nodes when index_t
+	  is a 64-bit number.
+
+2024-09-01 [r2189]  Andrew M. Bishop <amb>
+
+	* src/relationsx.c, src/waysx.c: Change some types and correct some
+	  comparisons that cause errors if index_t is changed to a 64-bit
+	  type (prompted by patch from a user).
+
+2024-08-29 [r2188]  Andrew M. Bishop <amb>
+
+	* src/files.c, src/output.c, src/router+lib.c, src/routino.c,
+	  src/tagging.c: Swap the order of arguments to calloc() function
+	  (new gcc warning).
+
+2024-05-27 [r2187]  Andrew M. Bishop <amb>
+
+	* src/optimiser.c: Fix gcc-13 false-positive warning.
+
+2024-03-17 [r2186]  Andrew M. Bishop <amb>
+
+	* web/translations/translation.de.txt: Added more/updated German
+	  translations (via http://www.routino.org/translations/).
+
+2024-02-27 [r2185]  Andrew M. Bishop <amb>
+
+	* web/translations/translation.es.txt: Added more Spanish
+	  translations (via http://www.routino.org/translations/).
+
+2023-08-29 [r2182-2183]  Andrew M. Bishop <amb>
+
+	* src/osmparser.c: Add new parsers for heights/widths in feet and
+	  inches format.
+
+	* xml/routino-tagging.xml: Update the way tagging, minor changes.
+
+2023-08-28 [r2178-2179]  Andrew M. Bishop <amb>
+
+	* extras/errorlog/summarise-log.pl: Include the first 100 links
+	  (rather than none) if there are more than 100 of them.
+
+	* xml/routino-tagging.xml: Rework the node tagging, only consider
+	  barriers as blocking access. Now cycle_barrier defaults to
+	  allowing bicycles (unlike the {horse,motorcycle,car}_barrier
+	  which block the named transport).
+
+2023-08-26 [r2177]  Andrew M. Bishop <amb>
+
+	* xml/routino-tagging.xml: XML formatting tidy-up (no functional
+	  change).
+
+2023-08-25 [r2176]  Andrew M. Bishop <amb>
+
+	* xml/routino-tagging.xml: Always have a 'k' attribute on
+	  'logerror' objects (for clarity).
+
+2023-07-16 [r2173]  Andrew M. Bishop <amb>
+
+	* src/sorting.c: Fix bug with using uninitialised memory - found by
+	  valgrind.
+
+2023-07-16 [r2172]  Andrew M. Bishop <amb>
+
+	* src/sorting.c: Refactor the code to put the file merging into a
+	  separate function and share it between the two types of sort.
+
+2023-07-15 [r2171]  Andrew M. Bishop <amb>
+
+	* src/sorting.c: Simplify and comment the threading functions. Fix
+	  a potential deadlock if the last thread finished before we wait
+	  for them.
+
+2023-07-13 [r2170]  Andrew M. Bishop <amb>
+
+	* extras/find-fixme/osmparser.c, src/osmo5mparse.c,
+	  src/osmparser.c, src/osmparser.h, src/osmpbfparse.c,
+	  src/osmxmlparse.c: Refactor the OSM file parsing to move code
+	  from individual file format specific parsers to the shared parser
+	  back-end.
+
+2023-07-05 [r2169]  Andrew M. Bishop <amb>
+
+	* src/sorting.c: Create separate functions for thread handling.
+
+2023-07-04 [r2168]  Andrew M. Bishop <amb>
+
+	* src/sorting.c: Merge functions filesort_fixed_heapsort_thread and
+	  filesort_vary_heapsort_thread.
+
+2023-07-04 [r2167]  Andrew M. Bishop <amb>
+
+	* src/version.h: Update the version number to show it is from SVN
+	  not a release.
+
+2023-07-03 [r2166]  Andrew M. Bishop <amb>
+
+	* src/sorting.c: Review the sorting problems fixed in v4.3.1 and
+	  update the code to:
+	  * Make it clearer to the reader how it works.
+	  * Better at choosing the number of threads to use.
+	  * Optimise the data per thread (uses less memory in some cases).
+	  * Add optional debug output.
+	  * Remove the real cause of the bug in v3.4 (affected only when all the data fitted into
+	    RAM with a single thread which is why it only appeared when the default RAM size was
+	    increased).
+
 2023-07-01  Andrew M. Bishop <amb>
 
 	Version 3.4.1 released.
+
+2023-07-01 [r2162]  Andrew M. Bishop <amb>
+
+	* src/sorting.c: Last minute fix for v3.4.1.
 
 2023-07-01 [r2157-2158]  Andrew M. Bishop <amb>
 
